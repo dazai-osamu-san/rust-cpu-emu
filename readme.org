@@ -1,0 +1,123 @@
+* Cpu Rust Emulator
+A simple and understandable cpu emulator written in rust :spaceship:!
+
+
+* Installation
+#+begin_src bash
+git clone https://github.com/dazai-osamu-san/rust-cpu-emu.git
+#+end_src
+Once the repository is cloned
+
+#+begin_src bash
+cd rust-cpu-emu
+#+end_src
+
+
+* Usage
+A cpu operates with opcodes, similary a system of opcodes is implemented.
+
+Opcodes go in the instruction memory which starts from 0 1023 is instruction memory and 1024 to 4096 is memory.
+
+** Writing your own instructions
+Open the src/main.rs file in your favourite editor(emacs) and just follow the following instructions.
+*** OPCODE: 0 Write to Memory
+
+The write to memory function is used to store data at a specific memory address.
+
+*Instruction Format:*
+
+- Opcode: 0
+- Length: 3 bytes
+
+*Instruction Description:*
+
+To write to memory, follow these steps:
+
+1. Choose a memory address (`addr`) where you want to store the data.
+2. Determine the value (`data`) you want to write to memory.
+3. Call the `write_memory` function on the `cpu` instance, passing the following arguments:
+   - Argument 1 (`x`): The starting address of the instruction (usually the current program counter).
+   - Argument 2 (`0`): The opcode value, which is `0` for the write to memory instruction.
+   - Argument 3 (`addr`): The memory address where you want to store the data.
+   - Argument 4 (`data`): The value you want to write to memory.
+
+*Example:*
+
+Suppose you want to write the value `42` to memory address `1000`. You can use the following code:
+
+#+begin_src rust
+cpu.write_memory(x, 0);           // Opcode: 0 (write to memory)
+cpu.write_memory(x + 1, 1000);    // Memory address: 1000
+cpu.write_memory(x + 2, 42);      // Data: 42
+#+end_src
+
+
+*** OPCODE: 1 Load from Memory
+
+The load from memory function is used to retrieve data from a specific memory address and store it in a register.
+
+*Instruction Format:*
+
+- Opcode: 1
+- Length: 2 bytes
+
+*Instruction Description:*
+
+To load from memory, follow these steps:
+
+    Specify the memory address (addr) from which you want to retrieve the data.
+    Call the write_memory function on the cpu instance, passing the following arguments:
+        Argument 1 (x): The starting address of the instruction (usually the current program counter).
+        Argument 2 (1): The opcode value, which is 1 for the load from memory instruction.
+        Argument 3 (addr): The memory address from which you want to load the data.
+
+*Example:*
+
+Suppose you want to load data from memory address 2000 into register 0. You can use the following code:
+
+#+begin_src rust
+cpu.write_memory(x, 1);           // Opcode: 1 (load from memory)
+cpu.write_memory(x + 1, 2000);    // Memory address: 2000
+#+end_src
+
+
+*** OPCODE: 2 ADD
+
+The ADD instruction performs addition between the values in two registers and stores the result in register 0.
+
+*Instruction Format:*
+
+    Opcode: 2
+    Length: 1 byte
+
+*Instruction Description:*
+
+To perform the ADD operation, follow these steps:
+
+    Call the execute method on the cpu instance to execute the instruction.
+
+*Example:*
+#+begin_src rust
+cpu.write_memory(x, 2);  // Opcode: 2 (ADD)
+#+end_src
+
+*** OPCODE: 3 SUB
+
+The SUB instruction performs subtraction between the values in two registers and stores the result in register 0.
+
+*Instruction Format:*
+
+    Opcode: 3
+    Length: 1 byte
+
+*Instruction Description:*
+
+To perform the SUB operation, follow these steps:
+
+    Call the execute method on the cpu instance to execute the instruction.
+
+*Example:*
+
+#+begin_src rust
+cpu.write_memory(x, 3);  // Opcode: 3 (SUB)
+#+end_src
