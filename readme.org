@@ -1,6 +1,6 @@
-* Cpu Rust Emulator
+* Rust CPU Emulator
 A simple and understandable cpu emulator written in rust :spaceship:!
-
+This is just a basic project to understand how a microprocessor works, there are a lot more things to know about in detail. I go over some of the main stuff in my blog, reading it before trying this project will help you a lot!
 
 * Installation
 #+begin_src bash
@@ -12,11 +12,24 @@ Once the repository is cloned
 cd rust-cpu-emu
 #+end_src
 
+*Running the cpu*
+#+begin_src rust
+cargo build
+cargo run
+#+end_src
+
+* Dependancies
+1. rust
+2. cargo
+3. nothing more!
 
 * Usage
 A cpu operates with opcodes, similary a system of opcodes is implemented.
 
 Opcodes go in the instruction memory which starts from 0 1023 is instruction memory and 1024 to 4096 is memory.
+
+All the instructions should be in consecutive memory locations in the instruction memory.
+
 
 ** Writing your own instructions
 Open the src/main.rs file in your favourite editor(emacs) and just follow the following instructions.
@@ -107,11 +120,10 @@ The SUB instruction performs subtraction between the values in two registers and
 
 *Instruction Format:*
 
-    Opcode: 3
-    Length: 1 byte
+- Opcode: 3
+- Length: 1 byte
 
 *Instruction Description:*
-
 To perform the SUB operation, follow these steps:
 
     Call the execute method on the cpu instance to execute the instruction.
@@ -120,4 +132,43 @@ To perform the SUB operation, follow these steps:
 
 #+begin_src rust
 cpu.write_memory(x, 3);  // Opcode: 3 (SUB)
+#+end_src
+
+*** OPCODE: 4 Load into reg1
+The store into reg1 instruction copies the value in register 0 and stores it in register 1.
+
+*Instruction Format:*
+
+- Opcode: 5
+- Length: 1 byte
+
+*Instruction Description:*
+To perform the store into reg1 operation, follow these steps:
+
+    Call the execute method on the cpu instance to execute the instruction.
+
+*Example:*
+
+#+begin_src rust
+cpu.write_memory(x, 5);  // Opcode: 5 (Store into reg1)
+#+end_src
+
+Make sure to replace x with the appropriate address of the instruction in your code.
+
+*** OPCODE: 9 HLT
+The HLT instruction stops the execution of the program.
+
+*Instruction Format:*
+
+- Opcode: 9
+- Length: 1 byte
+
+*Instruction Description:*
+To perform the HLT operation, follow these steps:
+
+    Call the execute method on the cpu instance to execute the instruction.
+
+*Example:*
+#+begin_src rust
+cpu.write_memory(x, 9);  // Opcode: 9 (HLT)
 #+end_src
