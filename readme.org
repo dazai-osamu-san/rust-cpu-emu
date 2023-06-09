@@ -1,6 +1,6 @@
 * Rust CPU Emulator
 A simple and understandable cpu emulator written in rust :spaceship:!
-This is just a basic project to understand how a microprocessor works, there are a lot more things to know about in detail. I go over some of the main stuff in my blog, reading it before trying this project will help you a lot!
+This is just a basic project to understand how a microprocessor works, there are a lot more things to know about in detail. I go over some of the basics of microprocessors on my blog.
 
 * Installation
 #+begin_src bash
